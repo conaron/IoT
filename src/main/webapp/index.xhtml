@@ -25,7 +25,7 @@
                     <p:inputText id="senha" required="true" label="senha" />
 
                     <f:facet name="footer">
-                        <p:commandButton value="Login" update="alerta" onclick="hash()"
+                        <p:commandButton value="Login" onclick="hash()"
                                          oncomplete="handleLoginRequest(xhr, status, args)" />
                     </f:facet>
                 </h:panelGrid>
