@@ -15,25 +15,22 @@
 
         <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
 
-        <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
-            <h:panelGrid columns="2" cellspacing="5">
-                <h:outputLabel for="email" value="Email:" />
-                <p:inputText id="email" required="true" label="email" />
+        <h:form>
+            <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
+                <h:panelGrid columns="2" cellspacing="5">
+                    <h:outputLabel for="email" value="Email:" />
+                    <p:inputText id="email" required="true" label="email" />
 
-                <h:outputLabel for="senha" value="Senha:" />
-                <p:inputText id="senha" required="true" label="senha" />
+                    <h:outputLabel for="senha" value="Senha:" />
+                    <p:inputText id="senha" required="true" label="senha" />
 
-                <f:facet name="footer">
-                    <p:commandButton value="Login" update="alerta" onclick="hash()"
-                                     oncomplete="handleLoginRequest(xhr, status, args)" />
-                </f:facet>
-
-
-            </h:panelGrid>
-        </p:dialog>
-
-
-
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" update="alerta" onclick="hash()"
+                                         oncomplete="handleLoginRequest(xhr, status, args)" />
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
 
         <h:form prependId="false" style="display:none;">
             <h:inputText id="input" value="#{login.hash}">
