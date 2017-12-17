@@ -4,19 +4,17 @@
 package controller;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author Airton da Rocha Bernardoni
  */
 @Named(value = "login")
-@SessionScoped
-public class Login implements Serializable {
+
+public class Login {
 
     private String hash;
 
@@ -32,19 +30,21 @@ public class Login implements Serializable {
     }
 
     public void validacao() {
+        hash = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("hash");
+        RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
+        boolean logado = false;
 
-        try {
-            hash = FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("hash");
-        } catch (Exception e) {
-            hash = "";
+        if (hash != null && hash.equals("admin")) {
+            logado = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", hash);
+        } else {
+            logado = false;
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
         }
 
-        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", "Airton: " + hash);
-
         FacesContext.getCurrentInstance().addMessage(null, message);
-//        System.out.println("testetesteteste");
+        context.addCallbackParam("logado", logado);
 
     }
 
