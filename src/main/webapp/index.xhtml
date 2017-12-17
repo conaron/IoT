@@ -15,7 +15,9 @@
 
         <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
 
-        <h:form>
+        <h:form id="login">
+            <h:inputHidden id="hash" />
+
             <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
                 <h:panelGrid columns="2" cellspacing="5">
                     <h:outputLabel for="email" value="Email:" />
@@ -26,32 +28,18 @@
 
                     <f:facet name="footer">
                         <p:commandButton value="Login" onclick="hash()"
+                                         actionListener="#{login.validacao}"
+                                         update="growl"
                                          oncomplete="handleLoginRequest(xhr, status, args)" />
                     </f:facet>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
 
-        <h:form prependId="false" style="display:none;">
-            <h:inputText id="input" value="#{login.hash}">
-                <f:ajax event="change" execute="@this" listener="#{login.validacao}" render=":something" />
-            </h:inputText>
-        </h:form>
 
         Hello from Facelets
         <br />
-        <h:outputText value="#{MessageDigest.getInstance('MD5').update('Texto de Exemplo'.getBytes(),0,'Texto de Exemplo'.length()).digest().toString()}"/>
-        <br />
         <h:link outcome="welcomePrimefaces" value="Página de boas-vindas do Primefaces" />
-
-
-        <script>
-            function somefunction() {
-                var input = document.getElementById('input');
-                input.value = 'your JSON string';
-                input.onchange();
-            }
-        </script>
 
     </h:body>
 </html>
