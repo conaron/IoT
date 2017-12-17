@@ -31,7 +31,7 @@ public class Login implements Serializable {
         this.hash = hash;
     }
 
-    public void validacao(ActionEvent event) {
+    public void validacao() {
         FacesMessage message = null;
 
         try {
@@ -44,7 +44,7 @@ public class Login implements Serializable {
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", "Airton: " + hash);
 
         FacesContext.getCurrentInstance().addMessage(null, message);
-        System.out.println("testetesteteste");
+//        System.out.println("testetesteteste");
 
     }
 

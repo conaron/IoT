@@ -1,4 +1,4 @@
-function handleLoginRequest(xhr, status, args) {
+function validarLogin(xhr, status, args) {
     if (args.validationFailed || !args.logado) {
         PF('dlg').jq.effect("shake", {times: 5}, 100);
     } else {
@@ -12,7 +12,6 @@ function hash() {
     var senha = jQuery("[id$='senha']").val();
     var corpo = email + senha;
     var hash = MD5(corpo);
-    alert(email + ": " + hash);
 
     setarHash([{
             name: 'hash',
