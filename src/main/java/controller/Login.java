@@ -6,8 +6,8 @@ package controller;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javafx.event.ActionEvent;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -31,7 +31,7 @@ public class Login implements Serializable {
         this.hash = hash;
     }
 
-    public void validacao() {
+    public void validacao(ActionEvent event) {
         FacesMessage message = null;
 
         try {
