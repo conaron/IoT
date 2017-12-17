@@ -44,6 +44,7 @@ public class Login implements Serializable {
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", "Airton: " + hash);
 
         FacesContext.getCurrentInstance().addMessage(null, message);
+        System.out.println("testetesteteste");
 
     }
 
