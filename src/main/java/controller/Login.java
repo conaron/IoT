@@ -6,7 +6,9 @@ package controller;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -29,8 +31,20 @@ public class Login implements Serializable {
         this.hash = hash;
     }
 
-    public void validacao(AjaxBehaviorEvent event) {
-        System.out.println(hash);
+    public void validacao() {
+        FacesMessage message = null;
+
+        try {
+            hash = FacesContext.getCurrentInstance().getExternalContext()
+                    .getRequestParameterMap().get("hash");
+        } catch (Exception e) {
+            hash = "";
+        }
+
+        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", "Airton: " + hash);
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
     }
 
 }
