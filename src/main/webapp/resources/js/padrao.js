@@ -1,8 +1,3 @@
-function teste() {
-    alert('teste');
-}
-
-
 function handleLoginRequest(xhr, status, args) {
     if (args.validationFailed || !args.logado) {
         PF('dlg').jq.effect("shake", {times: 5}, 100);
@@ -17,6 +12,7 @@ function hash() {
     var senha = jQuery("[id$='senha']").val();
     var corpo = email + senha;
     var hash = MD5(corpo);
+    alert(email + ": " + hash);
 
     setarHash([{
             name: 'hash',
