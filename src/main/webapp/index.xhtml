@@ -16,7 +16,6 @@
 
         <h:form id="login">
             <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
-            <h:inputHidden id="hash" />
 
             <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
                 <h:panelGrid columns="2" cellspacing="5">
@@ -26,11 +25,15 @@
                     <h:outputLabel for="senha" value="Senha:" />
                     <p:inputText id="senha" required="true" label="senha" />
 
+                    <p:remoteCommand 
+                        name="setarHash"
+                        process="@this"
+                        update="alerta"
+                        actionListener="#{login.validacao}" />
+
                     <f:facet name="footer">
                         <p:commandButton value="Login" onclick="hash()"
-                                         actionListener="#{login.validacao}"
-                                         update="alerta"
-                                         oncomplete="handleLoginRequest(xhr, status, args)" />
+                                         oncomplete="validarLogin(xhr, status, args)" />
                     </f:facet>
                 </h:panelGrid>
             </p:dialog>
