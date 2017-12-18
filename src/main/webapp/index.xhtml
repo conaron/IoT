@@ -2,47 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
-        <h:outputScript library="js" name="padrao.js" />
         <h:outputStylesheet library="css" name="font-awesome.css" />
         <h:outputStylesheet library="css" name="padrao.css" />
     </h:head>
 
     <h:body>
 
+        <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
 
-        <h:form id="login">
-            <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
+        <ui:include id="corpo" src="sistema/login.xhtml" />
 
-            <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
-                <h:panelGrid columns="2" cellspacing="5">
-                    <h:outputLabel for="email" value="Email:" />
-                    <p:inputText id="email" required="true" label="email" />
-
-                    <h:outputLabel for="senha" value="Senha:" />
-                    <p:inputText id="senha" required="true" label="senha" />
-
-                    <p:remoteCommand 
-                        name="setarHash"
-                        process="@this"
-                        update="alerta"
-                        actionListener="#{login.validacao()}" />
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Login" onclick="hash()"
-                                         oncomplete="validarLogin(xhr, status, args)" />
-                    </f:facet>
-                </h:panelGrid>
-            </p:dialog>
-        </h:form>
-
-
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Página de boas-vindas do Primefaces" />
+        <h:outputScript library="js" name="padrao.js" />
 
     </h:body>
 </html>
