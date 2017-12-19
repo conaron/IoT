@@ -3,56 +3,72 @@
  */
 package controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import model.Adm;
 
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
+
 public class Login {
 
-    private String username;
-    private String password;
+    private Object usuario;
+    private String barra;
 
-    public String getUsername() {
-        return username;
+    public Object getUsuario() {
+        return usuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuario(Object usuario) {
+        this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getBarra() {
+        return barra;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setBarra(String barra) {
+        this.barra = barra;
     }
 
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws NoSuchAlgorithmException {
         FacesContext context = FacesContext.getCurrentInstance();
         RequestContext request = RequestContext.getCurrentInstance();
 
         Map<String, String> requestParamMap = context.getExternalContext().getRequestParameterMap();
         String hash = requestParamMap.get("hash");
 
-        FacesMessage message = null;
-        boolean loggedIn = false;
+        String admin = "adminadmin";
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(admin.getBytes(), 0, admin.length());
+        admin = new BigInteger(1, m.digest()).toString(16);
 
-        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Teste de Hash", "Hash: " + hash);
-//        if (username != null && username.equals("admin") && password != null && password.equals("admin")) {
-//            loggedIn = true;
-//            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-//        } else {
-//            loggedIn = false;
-//            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
-//        }
+        boolean logado = false;
+        FacesMessage.Severity nivel = FacesMessage.SEVERITY_FATAL;
+        String titulo = "Erro no login";
+        String mensagem = "E-mail ou senha inválidos";
 
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        request.addCallbackParam("loggedIn", loggedIn);
+        if (hash.equals(admin)) {
+            logado = true;
+            nivel = FacesMessage.SEVERITY_INFO;
+            titulo = "Bem vindo";
+            mensagem = "Usuário administativo";
+            this.barra = "adm";
+            this.usuario = new Adm();
+            request.update("barra");
+            
+            
+        } else {
+        }
+        context.addMessage(null, new FacesMessage(nivel, titulo, mensagem));
+        request.addCallbackParam("logado", logado);
+
     }
 }

@@ -19,11 +19,11 @@
                     name="setarHash"
                     process="@this"
                     update="alerta"
+                    oncomplete="validarLogin(xhr, status, args)"
                     actionListener="#{login.login}" />
 
                 <f:facet name="footer">
-                    <p:commandButton value="Login" onclick="hash()"
-                                     oncomplete="validarLogin(xhr, status, args)" />
+                    <p:commandButton value="Login" onclick="hash()" />
                 </f:facet>
             </h:panelGrid>
         </p:dialog>

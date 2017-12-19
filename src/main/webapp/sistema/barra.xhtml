@@ -1,0 +1,25 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"  
+    xmlns:p="http://primefaces.org/ui"
+
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <c:choose>
+        <c:when test="${barra != null}">
+            <p:dock position="bottom" itemWidth="50" maxWidth="100" proximity="250">
+                <c:choose>
+                    <c:when test="${barra == 'adm'}">
+                        <p:menuitem value="Servidores" icon="../resources/img/ico/admin.png" action="#"/>
+                        <p:menuitem value="Professores" icon="../resources/img/ico/professor.png" action="#"/>
+                    </c:when>
+                </c:choose>
+                <p:menuitem value="Aluno" icon="../resources/img/ico/aluno.png" action="#"/>
+                <p:menuitem value="Objeto" icon="../resources/img/ico/objeto.png" action="#"/>
+                <p:menuitem value="Sair" icon="../resources/img/ico/logout.png" action="#"/>
+            </p:dock>
+        </c:when>
+    </c:choose>
+
+</ui:composition>
