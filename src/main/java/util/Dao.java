@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import model.Aluno;
 import model.Objeto;
 
@@ -95,6 +96,20 @@ public class Dao {
             return null;
         }
         return lista;
+    }
+
+    public Object[] buscaRegistro(String query) {
+        Query q = entidadeM.createNativeQuery(query);
+        try {
+            return (Object[]) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Object buscaRegistro(String query, Class classe) {
+        Query q = entidadeM.createNativeQuery(query, classe);
+        return q.getSingleResult();
     }
 
     public List<Aluno> busca_alunos(Objeto objeto) {

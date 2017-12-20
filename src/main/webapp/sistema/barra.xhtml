@@ -1,25 +1,38 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"  
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"  
     xmlns:p="http://primefaces.org/ui"
-
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
+    <c:set var="id" value="#{sistema.barra}" />
+    <ui:param name="ico" value="../resources/img/ico" />
+
     <c:choose>
-        <c:when test="${barra != null}">
+        <c:when test="${id == 'adm'}">
             <p:dock position="bottom" itemWidth="50" maxWidth="100" proximity="250">
-                <c:choose>
-                    <c:when test="${barra == 'adm'}">
-                        <p:menuitem value="Servidores" icon="../resources/img/ico/admin.png" action="#"/>
-                        <p:menuitem value="Professores" icon="../resources/img/ico/professor.png" action="#"/>
-                    </c:when>
-                </c:choose>
-                <p:menuitem value="Aluno" icon="../resources/img/ico/aluno.png" action="#"/>
-                <p:menuitem value="Objeto" icon="../resources/img/ico/objeto.png" action="#"/>
-                <p:menuitem value="Sair" icon="../resources/img/ico/logout.png" action="#"/>
+                <p:menuitem value="Servidores" icon="#{ico}/admin.png"
+                            update="area" action="#{sistema.defineArea('adm')}"/>
+                <p:menuitem value="Professores" icon="#{ico}/professor.png"
+                            update="area" action="#{sistema.defineArea('professor')}"/>
+                <p:menuitem value="Aluno" icon="#{ico}/aluno.png"
+                            update="area" action="#{sistema.defineArea('aluno')}"/>
+                <p:menuitem value="Objeto" icon="#{ico}/objeto.png"
+                            update="area" action="#{sistema.defineArea('objeto')}"/>
+                <p:menuitem value="Sair" icon="#{ico}/logout.png"
+                            actionListener="#{sistema.logout()}"/>
             </p:dock>
         </c:when>
+        <c:when test="${id == 'professor'}">
+            <p:dock position="bottom" itemWidth="50" maxWidth="100" proximity="250">
+                <p:menuitem value="Aluno" icon="#{ico}/aluno.png"
+                            update="area" action="#{sistema.defineArea('aluno')}"/>
+                <p:menuitem value="Objeto" icon="#{ico}/objeto.png"
+                            update="area" action="#{sistema.defineArea('objeto')}"/>
+                <p:menuitem value="Sair" icon="#{ico}/logout.png"
+                            actionListener="#{sistema.logout()}"/>
+            </p:dock>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
     </c:choose>
-
 </ui:composition>

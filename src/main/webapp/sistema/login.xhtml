@@ -6,21 +6,20 @@
     xmlns:p="http://primefaces.org/ui"
     >
     <h:form id="login">
-
         <p:dialog header="login" widgetVar="dlg" resizable="false" closable="false" visible="true">
             <h:panelGrid columns="2" cellspacing="5">
                 <h:outputLabel for="email" value="Email:" />
                 <p:inputText id="email" required="true" label="email" />
 
                 <h:outputLabel for="senha" value="Senha:" />
-                <p:inputText id="senha" required="true" label="senha" />
+                <p:password id="senha" required="true" label="senha" />
 
                 <p:remoteCommand 
                     name="setarHash"
                     process="@this"
                     update="alerta"
                     oncomplete="validarLogin(xhr, status, args)"
-                    actionListener="#{login.login}" />
+                    actionListener="#{sistema.login}" />
 
                 <f:facet name="footer">
                     <p:commandButton value="Login" onclick="hash()" />

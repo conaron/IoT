@@ -12,27 +12,21 @@
 
     <h:body>
 
-        <p:growl id="alerta" sticky="true" showDetail="true" life="3000" />
+        <p:growl id="alerta" showDetail="true" life="3000" />
 
-        <p:outputPanel  id='corpo'>
-            <ui:include src="sistema/#{sistema.situacao}.xhtml" >
-            </ui:include>
+        <p:outputPanel id='corpo'>
+            <ui:include src="sistema/#{sistema.situacao}.xhtml" />
         </p:outputPanel>
 
         <h:form id='barra'>
-            <ui:include src="sistema/barra.xhtml">
-                <ui:param name = "barra" value = "#{login.barra}" />
-            </ui:include>
+            <ui:include src="sistema/barra.xhtml" />
         </h:form>
 
-        <p:outputPanel  id='area'>
-            <ui:include src="sistema/branco.xhtml">
-                <ui:param name = "area" value = "#{sistema.barra}" />
-            </ui:include>
-        </p:outputPanel>
+        <h:form id='area'>
+            <ui:include src="sistema/area.xhtml" />
+        </h:form>
 
         <h:outputScript library="js" name="padrao.js" />
-
     </h:body>
 </html>
 

@@ -1,0 +1,54 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"  
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <c:set var="id" value="#{sistema.area}" />
+    <ui:param name="ico" value="../resources/img/ico" />
+
+    <c:choose>
+        <c:when test="${id == 'adm'}">
+            <p:stack icon="#{ico}/stack.png" expanded="true">
+                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Listar" icon="#{ico}/lista.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Servidores" icon="#{ico}/admin.png"
+                            update="corpo" action="#"/>
+            </p:stack>
+        </c:when>
+        <c:when test="${id == 'professor'}">
+            <p:stack icon="#{ico}/stack.png" expanded="true">
+                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Listar" icon="#{ico}/lista.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Professores" icon="#{ico}/professor.png"
+                            update="corpo" action="#"/>
+            </p:stack>
+        </c:when>
+        <c:when test="${id == 'aluno'}">
+            <p:stack icon="#{ico}/stack.png" expanded="true">
+                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Listar" icon="#{ico}/lista.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Alunos" icon="#{ico}/aluno.png"
+                            update="corpo" action="#"/>
+            </p:stack>
+        </c:when>
+        <c:when test="${id == 'objeto'}">
+            <p:stack icon="#{ico}/stack.png" expanded="true">
+                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Listar" icon="#{ico}/lista.png"
+                            update="corpo" action="#"/>
+                <p:menuitem value="Objetos" icon="#{ico}/objeto.png"
+                            update="corpo" action="#"/>
+            </p:stack>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
+</ui:composition>
