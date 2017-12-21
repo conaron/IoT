@@ -9,7 +9,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import model.Adm;
+import org.primefaces.context.RequestContext;
 import util.Dao;
 
 @ManagedBean
@@ -54,12 +56,12 @@ public class AdmBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, f_mensagem);
     }
 
-    public void registra(Adm adm) {
-        adm.setSenha("12345");
-        String mensagem = Dao.getInstance().insere(adm);
+    public void registra(ActionEvent event) {
+        this.adm.setSenha("12345");
+        String mensagem = Dao.getInstance().insere(this.adm);
         FacesMessage f_mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro", mensagem);
         FacesContext.getCurrentInstance().addMessage(null, f_mensagem);
-//        Bean.tela = "altera";
+        RequestContext.getCurrentInstance().update("corpo");
     }
 
     public void altera(Adm adm) {

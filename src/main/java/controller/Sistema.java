@@ -5,10 +5,13 @@
  */
 package controller;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -28,24 +31,19 @@ import util.Dao;
 @ManagedBean
 @SessionScoped
 
-public class Sistema {
+public class Sistema implements Serializable {
 
-    private String situacao;
+    private String corpo = "login";
     private Object usuario;
     private Object barra;
     private String area;
+    private String operacao;
 
     public Sistema() {
 
     }
 
-    @PostConstruct
-    public void init() {
-        if (!(this.situacao instanceof String)) {
-            this.situacao = "login";
-        }
-    }
-
+//    Getters e Setters
     public Object getUsuario() {
         return this.usuario;
     }
@@ -62,30 +60,74 @@ public class Sistema {
         this.barra = barra;
     }
 
-    public String getSituacao() {
+    public String getCorpo() {
         Dao.getInstance();
-        return this.situacao;
+        return this.corpo;
     }
 
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setCorpo(String corpo) {
+        this.corpo = corpo;
     }
 
     public String getArea() {
         return this.area;
     }
 
-    public void defineArea(String area) {
-        this.area = area;
-        System.out.println(this.area);
+    public String getOperacao() {
+        return operacao;
+    }
+
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
+    }
+
+//    Atividades do sistema
+    public void sArea(ActionEvent event) {
+        this.corpo = "branco";
+        HashMap<String, String> destino = new HashMap();
+        destino.put("servidores", "adm");
+        destino.put("professores", "professor");
+        destino.put("alunos", "aluno");
+        destino.put("objetos", "objeto");
+
+        String value = event.getComponent().getAttributes().get("value").toString().toLowerCase();
+
+        this.area = destino.get(value);
+
+        RequestContext.getCurrentInstance().update(Arrays.asList("corpo", "area"));
+    }
+
+    public void sOperacao(ActionEvent event) {
+        this.corpo = "mod_" + this.area;
+        String value = event.getComponent().getAttributes().get("value").toString().toLowerCase();
+        if ((value.equalsIgnoreCase("cadastrar")) | (value.equalsIgnoreCase("listar"))) {
+            this.operacao = value;
+        } else {
+            this.corpo = "branco";
+        }
+        RequestContext.getCurrentInstance().update("corpo");
     }
 
     public void logout() {
-        situacao = "login";
+        RequestContext request = RequestContext.getCurrentInstance();
+        String titulo;
+        try {
+            titulo = "Adeus " + this.usuario.getClass().getMethod("getNome").invoke(this.usuario).toString();
+        } catch (IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
+            titulo = "Adeus";
+        }
+
+        this.corpo = "login";
+        this.area = "";
+        this.barra = "";
+        request.update(Arrays.asList("corpo", "area", "barra", "alerta"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                FacesMessage.SEVERITY_INFO, titulo, "Obrigado por utilizar nosso sistema."));
+
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
-    public void login(ActionEvent event) throws NoSuchAlgorithmException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void login(ActionEvent event) throws NoSuchAlgorithmException {
         String query;
         FacesContext context = FacesContext.getCurrentInstance();
         RequestContext request = RequestContext.getCurrentInstance();
@@ -107,10 +149,12 @@ public class Sistema {
             logado = true;
             nivel = FacesMessage.SEVERITY_INFO;
             titulo = "Bem vindo";
-            mensagem = "Usuário administativo";
-            this.barra = "professor";
             this.usuario = new Adm();
-            request.update("barra");
+            this.barra = "adm";
+            this.corpo = "branco";
+            ((Adm) this.usuario).setNome("Usuário administativo");
+            mensagem = ((Adm) this.usuario).getNome();
+            request.update(Arrays.asList("barra", "corpo"));
         } else {
             query = "select zona,id"
                     + " from"
@@ -123,20 +167,22 @@ public class Sistema {
                     + "	hash = '" + hash + "';";
             Object[] retorno = Dao.getInstance().buscaRegistro(query);
             if (retorno != null) {
+                logado = true;
+                titulo = "Bem vindo";
+                nivel = FacesMessage.SEVERITY_INFO;
+                this.corpo = "branco";
                 if ((int) retorno[0] == 1) {
                     this.barra = "adm";
                     this.usuario = (Adm) Dao.getInstance().buscaRegistro(
                             "select * from adm where id = " + retorno[1], Adm.class);
+                    mensagem = ((Adm) this.usuario).getNome();
                 } else {
                     this.barra = "professor";
                     this.usuario = (Professor) Dao.getInstance().buscaRegistro(
                             "select * from professor where id = " + retorno[1], Professor.class);
+                    mensagem = ((Professor) this.usuario).getNome();
                 }
-                logado = true;
-                nivel = FacesMessage.SEVERITY_INFO;
-                titulo = "Bem vindo";
-                mensagem = this.usuario.getClass().getMethod("getNome").invoke(this.usuario).toString();
-                request.update("barra");
+                request.update(Arrays.asList("barra", "corpo"));
             }
         }
         context.addMessage(null, new FacesMessage(nivel, titulo, mensagem));

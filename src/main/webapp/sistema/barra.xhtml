@@ -10,26 +10,18 @@
     <c:choose>
         <c:when test="${id == 'adm'}">
             <p:dock position="bottom" itemWidth="50" maxWidth="100" proximity="250">
-                <p:menuitem value="Servidores" icon="#{ico}/admin.png"
-                            update="area" action="#{sistema.defineArea('adm')}"/>
-                <p:menuitem value="Professores" icon="#{ico}/professor.png"
-                            update="area" action="#{sistema.defineArea('professor')}"/>
-                <p:menuitem value="Aluno" icon="#{ico}/aluno.png"
-                            update="area" action="#{sistema.defineArea('aluno')}"/>
-                <p:menuitem value="Objeto" icon="#{ico}/objeto.png"
-                            update="area" action="#{sistema.defineArea('objeto')}"/>
-                <p:menuitem value="Sair" icon="#{ico}/logout.png"
-                            actionListener="#{sistema.logout()}"/>
+                <p:menuitem actionListener="#{sistema.sArea}" value="Servidores" icon="#{ico}/admin.png" />
+                <p:menuitem actionListener="#{sistema.sArea}" value="Professores" icon="#{ico}/professor.png" />
+                <p:menuitem actionListener="#{sistema.sArea}" value="Alunos" icon="#{ico}/aluno.png" />
+                <p:menuitem actionListener="#{sistema.sArea}" value="Objetos" icon="#{ico}/objeto.png" />
+                <p:menuitem value="Sair" icon="#{ico}/logout.png" actionListener="#{sistema.logout()}" />
             </p:dock>
         </c:when>
         <c:when test="${id == 'professor'}">
             <p:dock position="bottom" itemWidth="50" maxWidth="100" proximity="250">
-                <p:menuitem value="Aluno" icon="#{ico}/aluno.png"
-                            update="area" action="#{sistema.defineArea('aluno')}"/>
-                <p:menuitem value="Objeto" icon="#{ico}/objeto.png"
-                            update="area" action="#{sistema.defineArea('objeto')}"/>
-                <p:menuitem value="Sair" icon="#{ico}/logout.png"
-                            actionListener="#{sistema.logout()}"/>
+                <p:menuitem actionListener="#{sistema.sArea}" value="Alunos" icon="#{ico}/aluno.png" />
+                <p:menuitem actionListener="#{sistema.sArea}" value="Objetos" icon="#{ico}/objeto.png" />
+                <p:menuitem value="Sair" icon="#{ico}/logout.png" actionListener="#{sistema.logout()}" />
             </p:dock>
         </c:when>
         <c:otherwise>

@@ -10,42 +10,30 @@
     <c:choose>
         <c:when test="${id == 'adm'}">
             <p:stack icon="#{ico}/stack.png" expanded="true">
-                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Listar" icon="#{ico}/lista.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Servidores" icon="#{ico}/admin.png"
-                            update="corpo" action="#"/>
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Cadastrar" icon="#{ico}/cadastro.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Listar" icon="#{ico}/lista.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Servidores" icon="#{ico}/admin.png" />
             </p:stack>
         </c:when>
         <c:when test="${id == 'professor'}">
             <p:stack icon="#{ico}/stack.png" expanded="true">
-                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Listar" icon="#{ico}/lista.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Professores" icon="#{ico}/professor.png"
-                            update="corpo" action="#"/>
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Cadastrar" icon="#{ico}/cadastro.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Listar" icon="#{ico}/lista.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Professores" icon="#{ico}/professor.png" />
             </p:stack>
         </c:when>
         <c:when test="${id == 'aluno'}">
             <p:stack icon="#{ico}/stack.png" expanded="true">
-                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Listar" icon="#{ico}/lista.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Alunos" icon="#{ico}/aluno.png"
-                            update="corpo" action="#"/>
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Cadastrar" icon="#{ico}/cadastro.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Listar" icon="#{ico}/lista.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Alunos" icon="#{ico}/aluno.png" />
             </p:stack>
         </c:when>
         <c:when test="${id == 'objeto'}">
             <p:stack icon="#{ico}/stack.png" expanded="true">
-                <p:menuitem value="Cadastrar" icon="#{ico}/cadastro.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Listar" icon="#{ico}/lista.png"
-                            update="corpo" action="#"/>
-                <p:menuitem value="Objetos" icon="#{ico}/objeto.png"
-                            update="corpo" action="#"/>
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Cadastrar" icon="#{ico}/cadastro.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Listar" icon="#{ico}/lista.png" />
+                <p:menuitem actionListener="#{sistema.sOperacao}" value="Objetos" icon="#{ico}/objeto.png" />
             </p:stack>
         </c:when>
         <c:otherwise>

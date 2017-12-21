@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -9,7 +8,6 @@ import javax.persistence.Entity;
  * @author Ton
  */
 @Entity
-@ManagedBean
 
 public class Adm extends Usuario implements Serializable {
 

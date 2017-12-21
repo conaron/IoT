@@ -1,0 +1,78 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    >
+
+    <ui:param name="m_tamanho3" value="Tamanho mínimo: 3 caracteres" />
+    <ui:param name="m_nome" value="Nome não pode estar vazio" />
+    <ui:param name="m_padrao" value="O campo não pode estar vazio" />
+
+    <h:form>
+        <p:panelGrid columns="2" id="painel" styleClass="ui-noborder">
+            <f:facet name="header">
+                Cadastro de Servidores
+            </f:facet>
+
+            <p:outputLabel for="cpf" value="CPF:" />
+            <p:inputMask id="cpf" value="#{admBean.adm.cpf}" mask="999.999.999-99" >
+                <f:validator validatorId="validador.Cpf" />
+            </p:inputMask>
+
+            <p:outputLabel for="nome" value="Nome:" />
+            <p:inputText id="nome" value="#{admBean.adm.nome}" required="true"
+                         requiredMessage="#{m_nome}" />
+
+            <p:outputLabel for="cargo" value="Cargo:" />
+            <p:inputText id="cargo" value="#{admBean.adm.cargo}" required="true"
+                         requiredMessage="#{m_padrao}" />
+
+            <p:outputLabel for="email" value="E-mail:" />
+            <p:inputText id="email" required="true" value="#{admBean.adm.email}" >
+                <f:validator validatorId="validador.Email" />
+            </p:inputText>
+
+            <p:outputLabel for="fone" value="Telefone:" />
+            <p:inputMask id="fone" value="#{admBean.adm.fone}" mask="(99) 9999-9999" />
+
+            <p:outputLabel for="uf" value="UF: " />
+            <p:selectOneMenu id="uf" value="#{admBean.adm.uf}" >
+                <ui:include src="util/uf.xhtml" />
+            </p:selectOneMenu>
+
+            <p:outputLabel for="cidade" value="Cidade:" />
+            <p:inputText id="cidade" value="#{admBean.adm.cidade}"
+                         validatorMessage="#{m_tamanho3}" >
+                <f:validateLength minimum="3" />
+            </p:inputText>
+
+            <p:outputLabel for="logradouro" value="Endereço:" />
+            <p:inputText id="logradouro"  value="#{admBean.adm.logradouro}"
+                         validatorMessage="#{m_tamanho3}" >
+                <f:validateLength minimum="3" />
+            </p:inputText>
+
+            <p:outputLabel for="numero" value="Número:" />
+            <p:inputMask id="numero" value="#{admBean.adm.numero}" mask="9999999" />
+
+            <f:facet name="footer">
+                <p:row><p:commandButton value="Limpar" type="reset" /></p:row>    
+            </f:facet>
+                
+            
+        </p:panelGrid>
+
+        <p:panelGrid columns="2" style="margin:auto; border-style: hidden"
+                     styleClass="ui-noborder">
+
+            
+
+            <p:commandButton ajax="false" value="Enviar" process="@form" update="corpo"
+                             actionListener="#{admBean.registra}" />
+
+        </p:panelGrid>
+    </h:form>
+    <p:spacer height="100" />
+</ui:composition>

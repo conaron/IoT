@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Ton
  */
 @Entity
-@ManagedBean
 
 public class Objeto implements Serializable {
 
